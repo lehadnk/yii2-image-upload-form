@@ -28,4 +28,11 @@ Usage
 Once the extension is installed, simply use it in your code by  :
 
 ```php
-<?= \lehadnk\ImageUploadForm\AutoloadExample::widget(); ?>```
+use \yii\helpers\Url;
+<?= \lehadnk\ImageUploadForm\Widget::widget([
+    'options' => [
+        'uploadUrl' => Url::to('image/upload'),
+        'deleteUrl' => Url::to('image/delete'),
+    ]
+]); ?>
+```
