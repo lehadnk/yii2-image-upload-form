@@ -1,0 +1,31 @@
+Image Upload Form
+=================
+Responsive multiple image upload form for yii2 framework
+
+Installation
+------------
+
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+
+Either run
+
+```
+php composer.phar require --prefer-dist lehadnk/yii2-image-upload-form "*"
+```
+
+or add
+
+```
+"lehadnk/yii2-image-upload-form": "*"
+```
+
+to the require section of your `composer.json` file.
+
+
+Usage
+-----
+
+Once the extension is installed, simply use it in your code by  :
+
+```php
+<?= \lehadnk\ImageUploadForm\AutoloadExample::widget(); ?>```

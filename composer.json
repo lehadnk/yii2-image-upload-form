@@ -1,0 +1,23 @@
+{
+    "name": "lehadnk/yii2-image-upload-form",
+    "description": "Responsive multiple image upload form for yii2 framework",
+    "type": "yii2-extension",
+    "minimum-stability": "dev",
+    "keywords": ["yii2","extension","upload","image"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Zauzin",
+            "email": "lehadnk@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/image-upload-form": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "lehadnk\\ImageUploadForm\\": ""
+        }
+    }
+}
