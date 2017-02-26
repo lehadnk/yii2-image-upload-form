@@ -26,13 +26,22 @@ Usage
 -----
 
 Once the extension is installed, simply use it in your code by  :
-
 ```php
 use \yii\helpers\Url;
 <?= \lehadnk\ImageUploadForm\Widget::widget([
     'options' => [
         'uploadUrl' => Url::to('image/upload'),
         'deleteUrl' => Url::to('image/delete'),
+    ],
+    'preloadImages' => [
+        [
+            'imageUrl' => '/img/14880264751162.jpg',
+            'id' => '13',
+        ],
+        [
+           'imageUrl' => '/img/avatar.png',
+           'id' => '18', 
+        ]
     ]
 ]); ?>
 ```
