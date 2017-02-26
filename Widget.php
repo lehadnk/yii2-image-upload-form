@@ -2,6 +2,7 @@
 
 namespace lehadnk\ImageUploadForm;
 use yii\base\Exception;
+use yii\base\Model;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -13,6 +14,11 @@ class Widget extends \yii\base\Widget {
     public $options = [];
 
     public $preloadImages = [];
+
+    /**
+     * @var AbstractContainerControllerHelper
+     */
+    public $container;
 
     public function run() {
         AdminLTEAsset::register($this->getView());
@@ -30,7 +36,7 @@ class Widget extends \yii\base\Widget {
     public function loadImages() {
         $images = '';
 
-        foreach ($this->preloadImages as $image) {
+        foreach ($this->container->getImages() as $image) {
             if (!isset($image['imageUrl'])) {
                 throw new Exception("Error parsing the preloadImages block: no imageUrl set!");
             }

@@ -15,6 +15,9 @@
         "yiisoft/yii2": "*",
         "bower-asset/image-upload-form": "*"
     },
+    "require-dev": {
+        "bizley/migration": "*"
+    },
     "autoload": {
         "psr-4": {
             "lehadnk\\ImageUploadForm\\": ""
