@@ -19,16 +19,20 @@ class EntityBasedContainer extends AbstractContainer
      */
     protected $entity;
 
-    private $baseDir;
-
-    public function __construct(ActiveRecord $entity, $baseDir = 'uploads/')
+    public function __construct(ActiveRecord $entity, $webDirPath = 'uploads/', $serverPath = null)
     {
         $this->entity = $entity;
-        $this->baseDir = $baseDir;
+        $this->webDirPath = $webDirPath;
+        $this->serverPath = ($serverPath === null) ? $webDirPath : $serverPath;
     }
 
-    public function getImageDir()
+    public function getServerPath()
     {
-        return $this->baseDir.$this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
+        return $this->serverPath.$this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
+    }
+
+    public function getWebDirPath()
+    {
+        return $this->webDirPath.$this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
     }
 }

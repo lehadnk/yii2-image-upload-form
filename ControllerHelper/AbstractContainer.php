@@ -16,19 +16,28 @@ use yii\web\Response;
 
 abstract class AbstractContainer extends Object
 {
+    protected $webDirPath;
+    protected $serverPath;
 
-    abstract function getImageDir();
+    public function getServerPath()
+    {
+        return $this->serverPath;
+    }
+
+    public function getWebDirPath()
+    {
+        return $this->webDirPath;
+    }
 
     public function getImages()
     {
-        if (!file_exists($this->getImageDir())) {
+        if (!file_exists($this->getServerPath())) {
             return [];
         }
 
         $images = [];
-        $files = new \RecursiveDirectoryIterator($this->getImageDir(), \RecursiveDirectoryIterator::SKIP_DOTS);
+        $files = new \RecursiveDirectoryIterator($this->getServerPath(), \RecursiveDirectoryIterator::SKIP_DOTS);
         foreach ($files as $file) {
-
             if ($file->isFile()) {
                 if (!in_array($file->getExtension(), [
                     'png', 'jpg', 'jpeg', 'bmp', 'gif'
@@ -36,7 +45,7 @@ abstract class AbstractContainer extends Object
 
                 $images[] = [
                     'id' => $file->getFilename(),
-                    'imageUrl' => $file->getPathname(),
+                    'imageUrl' => $this->getWebDirPath().$file->getFilename(),
                 ];
             }
         }
@@ -54,10 +63,10 @@ abstract class AbstractContainer extends Object
         if ($validator->validate($image)) {
             try {
                 $name = uniqid(date('dmy')) . '.' . $image->getExtension();
-                $path = $this->getImageDir().$name;
+                $path = $this->getServerPath().$name;
 
-                if (!file_exists($this->getImageDir())) {
-                    FileHelper::createDirectory($this->getImageDir(), 0777, true);
+                if (!file_exists($this->getServerPath())) {
+                    FileHelper::createDirectory($this->getServerPath(), 0777, true);
                 }
 
                 $image->saveAs($path);
@@ -67,7 +76,7 @@ abstract class AbstractContainer extends Object
 
             return [
                 'status' => true,
-                'src' => $path,
+                'src' => $this->getWebDirPath().$name,
                 'id' => $name,
             ];
         }
@@ -82,8 +91,8 @@ abstract class AbstractContainer extends Object
         try {
             $file = \Yii::$app->request->post('id');
 
-            if (file_exists($this->getImageDir().$file)) {
-                unlink($this->getImageDir().$file);
+            if (file_exists($this->getServerPath().$file)) {
+                unlink($this->getServerPath().$file);
                 return ['status' => true];
             } else {
                 return [

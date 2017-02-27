@@ -33,15 +33,6 @@ use \yii\helpers\Url;
         'uploadUrl' => Url::to('image/upload'),
         'deleteUrl' => Url::to('image/delete'),
     ],
-    'preloadImages' => [
-        [
-            'imageUrl' => '/img/14880264751162.jpg',
-            'id' => '13',
-        ],
-        [
-           'imageUrl' => '/img/avatar.png',
-           'id' => '18', 
-        ]
-    ]
+    'container' => new DirectoryBasedContainer('uploads/'),
 ]); ?>
 ```

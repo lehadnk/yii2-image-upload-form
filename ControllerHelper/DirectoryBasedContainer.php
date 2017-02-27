@@ -10,20 +10,9 @@ namespace lehadnk\ImageUploadForm\ControllerHelper;
 
 class DirectoryBasedContainer extends AbstractContainer
 {
-
-    /**
-     * Directory containing an images
-     * @var string
-     */
-    private $dir;
-
-    public function __construct($dir)
+    public function __construct($webDirPath = 'uploads/', $serverPath = null)
     {
-        $this->dir = $dir;
-    }
-
-    public function getImageDir()
-    {
-        return $this->dir;
+        $this->webDirPath = $webDirPath;
+        $this->serverPath = ($serverPath === null) ? $webDirPath : $serverPath;
     }
 }
