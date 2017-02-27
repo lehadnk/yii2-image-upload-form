@@ -21,7 +21,7 @@ class DbBasedContainer extends EntityBasedContainer
             try {
                 $image = new Image();
                 $image->setOwner($this->entity);
-                $image->filename = $result['src'];
+                $image->filename = $this->buildFilePath().$result['id'];
                 $image->save();
 
                 $result['id'] = $image->getPrimaryKey();
@@ -43,7 +43,7 @@ class DbBasedContainer extends EntityBasedContainer
         $result = [];
         foreach ($images as $image) {
             $result[] = [
-                'imageUrl' => $image->filename,
+                'imageUrl' => $this->webDirPath.$image->filename,
                 'id' => $image->getPrimaryKey(),
             ];
         }

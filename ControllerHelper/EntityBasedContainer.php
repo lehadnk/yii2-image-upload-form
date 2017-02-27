@@ -26,13 +26,17 @@ class EntityBasedContainer extends AbstractContainer
         $this->serverPath = ($serverPath === null) ? $webDirPath : $serverPath;
     }
 
+    protected function buildFilePath() {
+        return $this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
+    }
+
     public function getServerPath()
     {
-        return $this->serverPath.$this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
+        return $this->serverPath.$this->buildFilePath();
     }
 
     public function getWebDirPath()
     {
-        return $this->webDirPath.$this->entity->formName().'/'.$this->entity->getPrimaryKey().'/';
+        return $this->webDirPath.$this->buildFilePath();
     }
 }

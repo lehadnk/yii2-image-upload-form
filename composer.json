@@ -16,7 +16,8 @@
         "bower-asset/image-upload-form": "*"
     },
     "require-dev": {
-        "bizley/migration": "*"
+        "bizley/migration": "*",
+	"facebook/webdriver": "*"
     },
     "autoload": {
         "psr-4": {
