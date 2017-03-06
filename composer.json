@@ -13,7 +13,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "bower-asset/image-upload-form": "*"
+        "bower-asset/image-upload-form": ">=0.2.1"
     },
     "require-dev": {
         "bizley/migration": "*",
