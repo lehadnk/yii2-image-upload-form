@@ -64,13 +64,14 @@ class Test extends PHPUnit_Framework_TestCase
         // Uploading the image
         $input->setFileDetector(new LocalFileDetector());
         $input->sendKeys($this->imageFilePath);
-        $this->webDriver->wait(1);
+        sleep(1);
 
         // Verifying that crc32's of both local and uploaded file are the same
         $recentFileName = $this->getLastUploadedFile($this->webserverUploadDir);
         $this->assertEquals(hash_file('crc32b', $this->imageFilePath), hash_file('crc32b', $recentFileName));
         // Verifying that now we have cnt+1 images in the uploads dir
-        $this->assertEquals(iterator_count($fi), $cnt++);
+        $fi = new FilesystemIterator($this->webserverUploadDir, FilesystemIterator::SKIP_DOTS);
+        $this->assertEquals(iterator_count($fi), $cnt + 1);
     }
 
     public function testDelete() {
@@ -86,10 +87,11 @@ class Test extends PHPUnit_Framework_TestCase
         $this->assertTrue($button->isDisplayed());
 
         $button->click();
-        $this->webDriver->wait(1);
+        sleep(1);
 
         // Verifying that now we have cnt-1 images in the uploads dir
-        $this->assertEquals(iterator_count($fi), $cnt--);
+        $fi = new FilesystemIterator($this->webserverUploadDir, FilesystemIterator::SKIP_DOTS);
+        $this->assertEquals(iterator_count($fi), $cnt - 1);
     }
 
     /**
@@ -101,12 +103,16 @@ class Test extends PHPUnit_Framework_TestCase
         $mostRecentFilePath = "";
         $mostRecentFileMTime = 0;
 
-        $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir), RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($iterator as $fileinfo) {
-            if ($fileinfo->isFile()) {
-                if ($fileinfo->getMTime() > $mostRecentFileMTime) {
-                    $mostRecentFileMTime = $fileinfo->getMTime();
-                    $mostRecentFilePath = $fileinfo->getPathname();
+        $iterator = new FilesystemIterator($dir, FilesystemIterator::SKIP_DOTS);
+        foreach ($iterator as $file) {
+            if ($file->isFile()) {
+                if (!in_array($file->getExtension(), [
+                    'png', 'jpg', 'jpeg', 'bmp', 'gif'
+                ])) continue;
+
+                if ($file->getMTime() > $mostRecentFileMTime) {
+                    $mostRecentFileMTime = $file->getMTime();
+                    $mostRecentFilePath = $file->getPathname();
                 }
             }
         }
