@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "lehadnk\\ImageUploadForm\\": ""
+            "lehadnk\\ImageUploadForm\\": "src/"
         }
     }
 }
