@@ -1,12 +1,12 @@
 <?php
 
-namespace lehadnk\ImageUploadForm;
+namespace lehadnk\ImageUploadForm\Assets;
 use yii\web\AssetBundle;
 
 /**
  * This is just an example.
  */
-class AdminLTEAsset extends AssetBundle
+class BootstrapAsset extends AssetBundle
 {
     public $sourcePath = '@bower/image-upload-form';
 
@@ -16,9 +16,11 @@ class AdminLTEAsset extends AssetBundle
 
     public $js = [
         'build/ImageUploadForm.min.js',
+        'build/ImageUploadFormBootstrap.min.js',
     ];
 
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset'
     ];
 }

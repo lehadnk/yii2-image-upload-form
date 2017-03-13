@@ -1,8 +1,9 @@
 <?php
 
 namespace lehadnk\ImageUploadForm;
+use lehadnk\ImageUploadForm\Assets\BootstrapAsset;
+use lehadnk\ImageUploadForm\Assets\AdminLTEAsset;
 use yii\base\Exception;
-use yii\base\Model;
 use yii\helpers\Html;
 use yii\helpers\Json;
 
@@ -15,13 +16,18 @@ class Widget extends \yii\base\Widget {
 
     public $preloadImages = [];
 
+    public $assetBundle;
+
     /**
      * @var AbstractContainerControllerHelper
      */
     public $container;
 
     public function run() {
-        AdminLTEAsset::register($this->getView());
+        $bundleName = (isset(\Yii::$app->imageUploadForm->assetBundle)) ? \Yii::$app->imageUploadForm->assetBundle : 'Bootstrap';
+
+        $bundle = AssetBundleFactory::getAssetBundle($bundleName);
+        $bundle::register($this->getView());
 
         $id = 'image-upload-form'.$this->id;
         $options = Json::encode($this->options);
